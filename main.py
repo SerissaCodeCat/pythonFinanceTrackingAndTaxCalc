@@ -18,10 +18,18 @@
 # This Program SHOULD be able to display the data in Graph format.
 
 
+from ntpath import isdir
 import string
 import pandas as pd
 import PyQt6 as qt
 from decimal import Decimal, getcontext 
+import os
+
+# DEFINING GLOBAL VALUES
+
+yearly_data_directory = "_finances" # Will have desired year prepended to it
+data_folder = "data"
+
 
 # A functions that takes two intergers, and checks that the second one is 2 digits long, the first is put into the 
 # Dollar / pound / main delimination of currency place. the second interget should be for the "pennies" place
@@ -53,7 +61,28 @@ def write_to_data_file(date, column_name, value):
 
 # Function that creates the folder in the relative path to store the data file.
 def create_folder_structure():
-    print("This is a stub") 
+    directory = ""
+    if directory != "":    
+        if os.path.isdir(directory):
+            print("Folder already exists")
+        else:
+            os.mkdir(directory)
+    else:
+        print("directory is not valid.")
+    print("This is a stub")
+   
+# Function to check for past years documents.
+def check_previous_year(year):
+    try:
+        full_directory_path = f"{data_folder}/{year}{yearly_data_directory}"
+    except:
+        print(f"failed to convert year variable to string")
+    if os.isdir(full_directory_path):
+        print("directory already exists")
+        return True
+    else:
+        print(f"unable to find {full_directory_path}")
+        return False  
 
 # Function to check that the input value is a valid currency format.
 def check_input_is_valid_currency(currency_to_check):
