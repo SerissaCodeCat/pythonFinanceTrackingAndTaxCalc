@@ -18,7 +18,7 @@
 # This Program SHOULD be able to display the data in Graph format.
 
 
-from ntpath import isdir
+from ntpath import isdir, isfile
 import string
 import pandas as pd
 import PyQt6 as qt
@@ -55,14 +55,23 @@ def add_to_expenses( a, b):
 # The function takes the date, the colum header name, and either adds the data to that row
 # or makes the new row if one is not pressent. If the passed header is not pressent in the data-file
 # the write request will be rejected.
-def write_to_data_file(date, column_name, value):
+def write_to_data_file(year, file_name, date, column_name, value):
+    if check_if_data_file_exists == True:
+        print("file currently exists and will be written to.")
+    else:
+        print("file does not exist and will be written to.")
     print(f"input date is {date}, the column name is {column_name}, and the value passed is {value}")
     print("This is a stub.")
 
+def check_if_data_file_exists(year, file_name):
+    if os.isfile(f"{data_folder}/{year}{yearly_data_directory}/{file_name}"):
+        return True
+    return False
+
 # Function that creates the folder in the relative path to store the data file.
-def create_folder_structure():
-    directory = ""
-    if directory != "":    
+def create_folder_structure(year):
+    directory = f"{data_folder}/{year}{yearly_data_directory}"
+    if directory != "" | "/" :    
         if os.path.isdir(directory):
             print("Folder already exists")
         else:
