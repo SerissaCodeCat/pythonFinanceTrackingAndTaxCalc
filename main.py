@@ -56,15 +56,24 @@ def add_to_expenses( a, b):
 # or makes the new row if one is not pressent. If the passed header is not pressent in the data-file
 # the write request will be rejected.
 def write_to_data_file(year, file_name, date, column_name, value):
-    if check_if_data_file_exists == True:
+    file_to_check = f"{data_folder}/{year}{yearly_data_directory}/{file_name}"
+    #checks if file already exists, if not, creates it
+    if check_if_data_file_exists(file_to_check) == False:
+        path_and_file_to_be_created = open(file_to_check, "w")
+        path_and_file_to_be_created.close()
+
         print("file currently exists and will be written to.")
     else:
-        print("file does not exist and will be written to.")
+        print("file does not exist and will be created to.")
     print(f"input date is {date}, the column name is {column_name}, and the value passed is {value}")
     print("This is a stub.")
 
-def check_if_data_file_exists(year, file_name):
-    if os.isfile(f"{data_folder}/{year}{yearly_data_directory}/{file_name}"):
+
+    
+
+
+def check_if_data_file_exists(full_file_path_and_name):
+    if os.isfile(full_file_path_and_name):
         return True
     return False
 
